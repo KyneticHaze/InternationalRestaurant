@@ -12,20 +12,15 @@ interface MealAPI {
         @Query("s") search: String
     ) : MealResponse
 
-    @GET("search.php")
-    suspend fun searchMealFirstLetter(
-        @Query("f") firstLetter: String
-    ) : MealResponse
-
-    @GET("lookup.php")
-    suspend fun getMealById(
-        @Query("i") mealId : String
-    ) : MealResponse
-
     @GET("categories.php")
     suspend fun getCategories() : CategoriesResponse
 
+    @GET("search.php")
+    suspend fun allMealsFirstLetter(
+        @Query("f") firstLetter: String
+    ) : MealResponse
+
     companion object {
-        const val BASE_URL = "www.themealdb.com/api/json/v1/1/"
+        const val MEAL_BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
     }
 }

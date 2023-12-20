@@ -52,6 +52,7 @@ android {
 }
 
 val retrofitVersion = "2.9.0"
+val navVersion = "2.7.6"
 
 dependencies {
 
@@ -61,6 +62,15 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:2.49")
     ksp("com.google.dagger:hilt-android-compiler:2.49")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:$navVersion")
+
+    // Hilt nav
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")

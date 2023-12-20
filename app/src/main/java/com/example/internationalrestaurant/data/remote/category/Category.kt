@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 
 data class Category(
     @SerializedName("idCategory")
-    val idCategory: String?,
+    val id: String?,
     @SerializedName("strCategory")
-    val strCategory: String?,
+    val categoryName: String?,
     @SerializedName("strCategoryDescription")
-    val strCategoryDescription: String?,
+    val categoryDesc: String?,
     @SerializedName("strCategoryThumb")
-    val strCategoryThumb: String?
+    val categoryImg: String?
 )

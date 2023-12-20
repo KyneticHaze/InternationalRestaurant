@@ -1,9 +1,10 @@
 package com.example.internationalrestaurant.data.remote.meal
 
 
+import com.example.internationalrestaurant.domain.model.Meal
 import com.google.gson.annotations.SerializedName
 
-data class Meal(
+data class MealDTO(
     @SerializedName("dateModified")
     val dateModified: Any?,
     @SerializedName("idMeal")
@@ -110,4 +111,14 @@ data class Meal(
     val strTags: String?,
     @SerializedName("strYoutube")
     val strYoutube: String?
+)
+
+fun MealDTO.toMeal(): Meal = Meal(
+    mealId = idMeal,
+    mealName = strMeal,
+    mealDesc = strInstructions,
+    deeplink = strYoutube,
+    mealCountry = strArea,
+    category = strCategory,
+    mealImg = strMealThumb
 )

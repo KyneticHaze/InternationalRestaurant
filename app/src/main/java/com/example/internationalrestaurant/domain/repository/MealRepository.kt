@@ -4,12 +4,9 @@ import com.example.internationalrestaurant.data.remote.category.CategoriesRespon
 import com.example.internationalrestaurant.data.remote.meal.MealResponse
 
 interface MealRepository {
-
-    suspend fun getMealById(mealId: String) : MealResponse
-
     suspend fun searchMeal(search: String) : MealResponse
 
-    suspend fun searchMealFirstLetter(firstLetter: String) : MealResponse
-
     suspend fun getCategories() : CategoriesResponse
+
+    suspend fun allMealsFirstLetter(firstLetter: String) : MealResponse
 }

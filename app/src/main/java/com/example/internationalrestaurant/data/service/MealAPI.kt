@@ -7,17 +7,22 @@ import retrofit2.http.Query
 
 interface MealAPI {
 
-    @GET("search.php")
-    suspend fun searchMeal(
-        @Query("s") search: String
-    ) : MealResponse
-
     @GET("categories.php")
     suspend fun getCategories() : CategoriesResponse
 
     @GET("search.php")
     suspend fun allMealsFirstLetter(
         @Query("f") firstLetter: String
+    ) : MealResponse
+
+    @GET("lookup.php")
+    suspend fun mealDetail(
+        @Query("i") mealId: String
+    ) : MealResponse
+
+    @GET("filter.php")
+    suspend fun filterCategories(
+        @Query("c") filterCategory: String
     ) : MealResponse
 
     companion object {

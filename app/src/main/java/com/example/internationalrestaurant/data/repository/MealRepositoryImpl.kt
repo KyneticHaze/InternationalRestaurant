@@ -9,8 +9,10 @@ class MealRepositoryImpl(
     private val mealAPI: MealAPI
 ) : MealRepository {
 
-    override suspend fun searchMeal(search: String): MealResponse = mealAPI.searchMeal(search)
-
     override suspend fun getCategories(): CategoriesResponse = mealAPI.getCategories()
+
     override suspend fun allMealsFirstLetter(firstLetter: String): MealResponse = mealAPI.allMealsFirstLetter(firstLetter)
+
+    override suspend fun mealDetail(mealId: String): MealResponse = mealAPI.mealDetail(mealId)
+    override suspend fun filterCategories(filterCategory: String): MealResponse = mealAPI.filterCategories(filterCategory)
 }

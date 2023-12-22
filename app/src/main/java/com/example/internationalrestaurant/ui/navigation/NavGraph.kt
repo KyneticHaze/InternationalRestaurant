@@ -9,9 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.internationalrestaurant.common.Params
 import com.example.internationalrestaurant.common.Routes
 import com.example.internationalrestaurant.ui.screens.drink.DrinkScreen
 import com.example.internationalrestaurant.ui.screens.favorites.FavoritesScreen
+import com.example.internationalrestaurant.ui.screens.meal.categoryDetail.CategoryMealsScreen
 import com.example.internationalrestaurant.ui.screens.meal.mealDetail.MealDetailScreen
 import com.example.internationalrestaurant.ui.screens.meal.meals.MealScreen
 
@@ -27,12 +29,20 @@ fun NavGraphComponent(
         modifier = Modifier.padding(paddingValues)
     ) {
         composable(Routes.Meal.route) {
-            MealScreen {
-                navHostController.navigate("${Routes.MealDetail.route}/$it")
-            }
+            MealScreen(
+                onNavigateMealDetail = {
+                    navHostController.navigate("${Routes.MealDetail.route}/$it")
+                },
+                onNavigateCategoryMeals = {
+                    navHostController.navigate("${Routes.CategoryMeals.route}/$it")
+                }
+            )
         }
-        composable("${Routes.MealDetail.route}/{mealId}") {
+        composable("${Routes.MealDetail.route}/{${Params.PARAM_MEAL_ID}}") {
             MealDetailScreen()
+        }
+        composable("${Routes.CategoryMeals.route}/{${Params.PARAM_CATEGORY_MEALS_NAME}}") {
+            CategoryMealsScreen()
         }
         composable(Routes.Drink.route) {
             DrinkScreen()

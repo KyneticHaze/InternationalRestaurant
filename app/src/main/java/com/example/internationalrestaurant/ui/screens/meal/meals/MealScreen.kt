@@ -23,22 +23,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.internationalrestaurant.R
-import com.example.internationalrestaurant.common.Routes
 import com.example.internationalrestaurant.ui.screens.meal.meals.components.CategoryItem
 import com.example.internationalrestaurant.common.SearchBar
 import com.example.internationalrestaurant.common.TitleText
 import com.example.internationalrestaurant.ui.screens.meal.meals.components.MealCard
 import com.example.internationalrestaurant.ui.screens.meal.meals.viewmodel.MealViewModel
 import com.example.internationalrestaurant.ui.theme.background
+import com.example.internationalrestaurant.ui.theme.secondary
 import com.example.internationalrestaurant.ui.theme.tertiary
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun MealScreen(
     viewModel: MealViewModel = hiltViewModel(),
-    onNavigateClick : (String) -> Unit
+    onNavigateMealDetail: (String) -> Unit,
+    onNavigateCategoryMeals: (String) -> Unit
 ) {
     val mealState = viewModel.mealState.value
     val categoryState = viewModel.categoryState.value
@@ -61,17 +61,16 @@ fun MealScreen(
                     .fillMaxWidth()
                     .padding(10.dp)
             )
-            TitleText(text = "Categories", textColor = tertiary)
+            TitleText(text = "Categories", textColor = secondary)
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                items(categoryState.category) {
-                    CategoryItem(it)
+                items(categoryState.category) { category ->
+                    CategoryItem(category = category, onClick = { onNavigateCategoryMeals(it) })
                 }
             }
-            TitleText(text = "Search Meal", textColor = tertiary)
-            SearchBar(
-                text = searchQuery,
+            TitleText(text = "Search Meal By First Letter", textColor = secondary)
+            SearchBar(text = searchQuery,
                 onTextChange = { viewModel.getMealsFirstLetter(it) },
                 onClearClick = {
                     viewModel.clearMeal()
@@ -80,20 +79,15 @@ fun MealScreen(
             )
             mealState.meals.let { meals ->
                 LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-                    items(meals) {meal ->
-                        MealCard(meal = meal) {
-                            onNavigateClick(it)
-                        }
+                    items(meals) { meal ->
+                        MealCard(meal = meal, onMealClick = {
+                            onNavigateMealDetail(it)
+                        }, starredMeal = {
+                            // Start Meal to Room
+                            viewModel.addMeal(it)
+                        })
                     }
                 }
-            }
-            if (mealState.error.isNotBlank()) {
-                Text(
-                    text = mealState.error,
-                    color = tertiary,
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.padding(10.dp)
-                )
             }
         }
     }

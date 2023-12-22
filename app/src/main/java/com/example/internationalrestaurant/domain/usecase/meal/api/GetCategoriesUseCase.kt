@@ -1,4 +1,4 @@
-package com.example.internationalrestaurant.domain.usecase.meal
+package com.example.internationalrestaurant.domain.usecase.meal.api
 
 import android.net.http.HttpException
 import android.os.Build

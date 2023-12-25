@@ -7,20 +7,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.internationalrestaurant.common.DataStats
-import com.example.internationalrestaurant.domain.usecase.meal.AllMealsFirstLetterUseCase
-import com.example.internationalrestaurant.domain.usecase.meal.GetCategoriesUseCase
+import com.example.internationalrestaurant.domain.model.Meal
+import com.example.internationalrestaurant.domain.usecase.meal.api.AllMealsFirstLetterUseCase
+import com.example.internationalrestaurant.domain.usecase.meal.api.GetCategoriesUseCase
+import com.example.internationalrestaurant.domain.usecase.meal.local.AddMealUseCase
 import com.example.internationalrestaurant.ui.screens.meal.meals.util.CategoryState
 import com.example.internationalrestaurant.ui.screens.meal.meals.util.MealState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @HiltViewModel
 class MealViewModel @Inject constructor(
     private val getCategoriesUseCase: GetCategoriesUseCase,
-    private val getMealsFirstLetterUseCase: AllMealsFirstLetterUseCase
+    private val getMealsFirstLetterUseCase: AllMealsFirstLetterUseCase,
+    private val addMealUseCase: AddMealUseCase
 ) : ViewModel() {
 
     private val _mealState = mutableStateOf(MealState())
@@ -91,5 +95,11 @@ class MealViewModel @Inject constructor(
     fun clearMeal() {
         _searchQuery.value = ""
         _mealState.value = _mealState.value.copy(meals = emptyList())
+    }
+
+    fun addMeal(meal : Meal) {
+        viewModelScope.launch {
+            addMealUseCase(meal)
+        }
     }
 }

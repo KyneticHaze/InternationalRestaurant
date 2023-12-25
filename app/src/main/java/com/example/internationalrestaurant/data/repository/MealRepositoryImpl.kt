@@ -6,6 +6,7 @@ import com.example.internationalrestaurant.data.remote.meal.MealResponse
 import com.example.internationalrestaurant.data.service.MealAPI
 import com.example.internationalrestaurant.domain.model.Meal
 import com.example.internationalrestaurant.domain.repository.MealRepository
+import kotlinx.coroutines.flow.Flow
 
 class MealRepositoryImpl(
     private val mealAPI: MealAPI,
@@ -24,7 +25,6 @@ class MealRepositoryImpl(
 
     override suspend fun deleteMeal(meal: Meal) = mealDao.deleteMeal(meal)
 
-    override suspend fun getMeals(): List<Meal> = mealDao.getMeals()
+    override fun getMeals(): Flow<List<Meal>> = mealDao.getMeals()
 
-    override suspend fun getMealById(id: Int?): Meal? = mealDao.getMealsById(id)
 }

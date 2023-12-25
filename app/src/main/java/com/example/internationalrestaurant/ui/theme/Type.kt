@@ -34,8 +34,3 @@ val Typography = Typography(
     )
     */
 )
-
-val dm_serif_text_italic = FontFamily(
-    Font(R.font.dm_serif_text_italic, FontWeight.Black),
-    Font(R.font.lily_script_one_regular, FontWeight.Black)
-)

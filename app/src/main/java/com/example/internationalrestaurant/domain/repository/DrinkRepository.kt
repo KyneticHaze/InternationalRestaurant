@@ -2,6 +2,7 @@ package com.example.internationalrestaurant.domain.repository
 
 import com.example.internationalrestaurant.data.remote.drink.DrinkResponse
 import com.example.internationalrestaurant.domain.model.Drink
+import kotlinx.coroutines.flow.Flow
 
 interface DrinkRepository {
     suspend fun searchDrink(search: String) : DrinkResponse
@@ -12,7 +13,6 @@ interface DrinkRepository {
 
     suspend fun deleteDrink(drink: Drink)
 
-    suspend fun getDrink() : List<Drink>
+    fun getDrinks() : Flow<List<Drink>>
 
-    suspend fun getDrinkById(id : Int?) : Drink?
 }

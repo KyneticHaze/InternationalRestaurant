@@ -6,15 +6,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.internationalrestaurant.domain.model.Drink
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DrinkDao {
 
     @Query("SELECT * FROM drink_table")
-    suspend fun getDrinks() : List<Drink>
-
-    @Query("SELECT * FROM drink_table WHERE id = :drinkId")
-    suspend fun getMealsById(drinkId : Int?) : Drink?
+    fun getDrinks() : Flow<List<Drink>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDrink(drink: Drink)

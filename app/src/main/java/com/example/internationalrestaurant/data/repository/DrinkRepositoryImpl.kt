@@ -5,6 +5,7 @@ import com.example.internationalrestaurant.data.remote.drink.DrinkResponse
 import com.example.internationalrestaurant.data.service.DrinkAPI
 import com.example.internationalrestaurant.domain.model.Drink
 import com.example.internationalrestaurant.domain.repository.DrinkRepository
+import kotlinx.coroutines.flow.Flow
 
 class DrinkRepositoryImpl(
     private val drinkAPI: DrinkAPI,
@@ -19,7 +20,6 @@ class DrinkRepositoryImpl(
 
     override suspend fun deleteDrink(drink: Drink) = drinkDao.deleteDrink(drink)
 
-    override suspend fun getDrink(): List<Drink> = drinkDao.getDrinks()
+    override fun getDrinks(): Flow<List<Drink>> = drinkDao.getDrinks()
 
-    override suspend fun getDrinkById(id: Int?): Drink? = drinkDao.getMealsById(id)
 }
